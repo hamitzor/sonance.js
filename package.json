@@ -1,0 +1,38 @@
+{
+    "name": "@hamitzor/sonance.js",
+    "version": "1.0.0",
+    "description": "Access audio I/O from Node",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hamitzor/sonance.js.git"
+    },
+    "author": "Hamit Can Zor (thenrerise@gmail.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hamitzor/sonance.js/issues"
+    },
+    "homepage": "https://github.com/hamitzor/sonance.js#readme",
+    "engines": {
+        "node": ">= 18.19.0"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist",
+        "LICENSE",
+        "README.md",
+        "tsconfig.json"
+    ],
+    "packageManager": "yarn@4.0.2",
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch"
+    },
+    "dependencies": {
+        "@hamitzor/rtaudio.js": "1.0.7"
+    },
+    "devDependencies": {
+        "@types/node": "^18.19.0",
+        "typescript": "^5.3.3"
+    }
+}
