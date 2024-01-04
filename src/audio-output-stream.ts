@@ -1,7 +1,8 @@
 import { Readable, Writable } from 'stream'
-import { RtAudio, RtAudioErrorType, RtAudioFormat, RtAudioStreamStatus } from '@hamitzor/rtaudio.js'
-import { AudioIOParams, formatToByteCount, getErrorMessage } from './common'
+import { RtAudio } from '@hamitzor/rtaudio.js'
+import { formatToByteCount, getErrorMessage } from './common'
 import { isUint8Array } from 'util/types'
+import { AudioIOParams, RtAudioErrorType, RtAudioFormat, RtAudioStreamStatus } from './types'
 
 const merge = (u1: Uint8Array, u2: Uint8Array) => {
   const merged = new Uint8Array(u1.byteLength + u2.byteLength)
@@ -22,18 +23,9 @@ const head = (u: Uint8Array, n: number) => {
 }
 
 /**
- * Audio write stream
- * 
- * @param api the low level API to utilize (An available API will be used if omitted)
- * @param deviceId deviceId the id of the input device
- * @param channels the number of channels to use. Device should support the provided value
- * @param firstChannel the index of the channel that will be considered the first (default=0)
- * @param format the format of the samples (bit depth) (default=16-bit)
- * @param sampleRate the sample rate
- * @param bufferFrames specifies frame size
- * @param options further options
+ * Class that represents an audio output stream
  */
-export class AudioWriteStream extends Writable {
+export class AudioOutputStream extends Writable {
   private _chunkSize: number
   private _buffer: Uint8Array
   private _rtAudio: RtAudio
@@ -41,6 +33,11 @@ export class AudioWriteStream extends Writable {
   private _destroyCallback: (error?: Error | null | undefined) => void
   private _destroyError: Error | null
 
+  /**
+   * Create an audio output stream
+   * 
+   * @param params parameters for the output stream
+   */
   constructor(params: AudioIOParams) {
     const chunkSize = params.bufferFrames * params.channels * formatToByteCount(params.format || RtAudioFormat.RTAUDIO_SINT16)
     const highWaterMark = params.highWaterMark || chunkSize
@@ -109,7 +106,7 @@ export class AudioWriteStream extends Writable {
     this._rtAudio.showWarnings(true)
   }
 
-  /** Disable warnings */
+  /** Disable warnings, which will be provided through the 'error' event */
   disableWarnings(): void {
     this._rtAudio.showWarnings(false)
   }
@@ -217,4 +214,3 @@ export class AudioWriteStream extends Writable {
 
 }
 
-export const createAudioWriteStream = (params: AudioIOParams) => new AudioWriteStream(params)

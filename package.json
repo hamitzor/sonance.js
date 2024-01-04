@@ -29,10 +29,11 @@
         "build:watch": "tsc --watch"
     },
     "dependencies": {
-        "@hamitzor/rtaudio.js": "1.0.7"
+        "@hamitzor/rtaudio.js": "1.0.9"
     },
     "devDependencies": {
         "@types/node": "^18.19.0",
+        "typedoc": "^0.25.6",
         "typescript": "^5.3.3"
     }
 }

@@ -1,0 +1,16 @@
+{
+  "navigationLinks": {
+    "sonance.js Examples": "https://github.com/hamitzor/sonance.js-examples"
+  },
+  "sidebarLinks": {
+    "sonance.js Examples": "https://github.com/hamitzor/sonance.js-examples"
+  },
+  "categorizeByGroup": true,
+  "sort": [
+    "source-order"
+  ],
+  "includeVersion": true,
+  "commentStyle": "all",
+  "cleanOutputDir": true,
+  "entryPoints": ["./src/index.ts"]
+}

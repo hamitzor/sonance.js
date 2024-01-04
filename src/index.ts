@@ -1,33 +1,11 @@
-import { AudioIOParams, formatToByteCount, getErrorMessage } from './common'
-import { createAudioReadStream, AudioReadStream } from './audio-read-stream'
-import { createAudioWriteStream, AudioWriteStream } from './audio-write-stream'
+import { formatToByteCount, getErrorMessage } from './common'
+import { AudioInputStream } from './audio-input-stream'
+import { AudioOutputStream } from './audio-output-stream'
 import { probeApis, probeDevices } from './probe'
 import {
-  DeviceInfo,
   RtAudio,
-  RtAudioApi,
-  RtAudioCallback,
-  RtAudioErrorType,
-  RtAudioFormat,
-  RtAudioStreamFlags,
-  RtAudioStreamStatus,
-  StreamOptions,
-  StreamParameters
 } from '@hamitzor/rtaudio.js'
-
-export const rtAudioVersion = RtAudio.getVersion()
-export const getApiDisplayName = RtAudio.getApiDisplayName
-export const getApiName = RtAudio.getApiName
-export const getAvailableApis = RtAudio.getCompiledApi
-
-export {
-  AudioIOParams,
-  formatToByteCount,
-  getErrorMessage,
-  createAudioReadStream,
-  AudioReadStream,
-  AudioWriteStream,
-  createAudioWriteStream,
+import {
   DeviceInfo,
   RtAudioApi,
   RtAudioCallback,
@@ -37,6 +15,28 @@ export {
   RtAudioStreamStatus,
   StreamOptions,
   StreamParameters,
+  AudioIOParams,
+} from './types'
+
+export const getApiDisplayName = RtAudio.getApiDisplayName
+export const getApiName = RtAudio.getApiName
+export const getAvailableApis = RtAudio.getCompiledApi
+
+export {
+  AudioInputStream,
+  AudioOutputStream,
   probeApis,
-  probeDevices
+  probeDevices,
+  DeviceInfo,
+  RtAudioApi,
+  RtAudioCallback,
+  RtAudioErrorType,
+  RtAudioFormat,
+  RtAudioStreamFlags,
+  RtAudioStreamStatus,
+  StreamOptions,
+  StreamParameters,
+  AudioIOParams,
 }
+
+export const rtAudioVersion = RtAudio.getVersion()
