@@ -12,9 +12,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hamitzor/rtaudio.js@npm:1.0.9":
-  version: 1.0.9
-  resolution: "@hamitzor/rtaudio.js@npm:1.0.9"
+"@hamitzor/rtaudio.js@npm:1.0.13":
+  version: 1.0.13
+  resolution: "@hamitzor/rtaudio.js@npm:1.0.13"
   dependencies:
     bindings: "npm:^1.5.0"
     cmake-js: "npm:^7.2.1"
@@ -23,7 +23,7 @@ __metadata:
     prebuild: "npm:^12.1.0"
     prebuild-install: "npm:^7.1.1"
     typescript: "npm:^5.3.3"
-  checksum: 3e3082d0b68c605547c200a5d9c7253335ec988dccc0002a1c2f2492d230d436f293646b525fe75fa91167d5bd474ebe67acd98b57893e1db9aec8a805a8a7a9
+  checksum: 180bcb18ed3cb964c992d7143ce95cdb43c37bbe35d4fa45cb0de05fa1f40c87b58c8b17c6f9b4f645b3483b1dc48683a2f09e53902986de294dd84a4c7c412b
   languageName: node
   linkType: hard
 
@@ -31,7 +31,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hamitzor/sonance.js@workspace:."
   dependencies:
-    "@hamitzor/rtaudio.js": "npm:1.0.9"
+    "@hamitzor/rtaudio.js": "npm:1.0.13"
     "@types/node": "npm:^18.19.0"
     typedoc: "npm:^0.25.6"
     typescript: "npm:^5.3.3"

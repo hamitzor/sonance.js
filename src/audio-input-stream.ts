@@ -1,7 +1,7 @@
 import { Readable } from 'stream'
-import { RtAudio } from '@hamitzor/rtaudio.js'
-import { formatToByteCount, getErrorMessage } from './common'
-import { AudioIOParams, RtAudioErrorType, RtAudioFormat, RtAudioStreamStatus } from './types'
+import { RtAudio, RtAudioErrorType, RtAudioFormat, RtAudioStreamStatus } from '@hamitzor/rtaudio.js'
+import { rtAudioFormatToByteCount, getReadableErrorMessage } from './common'
+import { AudioIOParams } from './types'
 
 /**
  * Class that represents an audio input stream. It is used to stream audio from an input device,
@@ -111,7 +111,7 @@ export class AudioInputStream extends Readable {
    * @param params parameters for the input stream
    */
   constructor(params: AudioIOParams) {
-    const highWaterMark = params.bufferFrames * params.channels * formatToByteCount(params.format || RtAudioFormat.RTAUDIO_SINT16)
+    const highWaterMark = params.bufferFrames * params.channels * rtAudioFormatToByteCount(params.format || RtAudioFormat.RTAUDIO_SINT16)
     super({ highWaterMark: highWaterMark })
 
     this._rtAudio = params.api ? new RtAudio(params.api) : new RtAudio()
@@ -122,7 +122,7 @@ export class AudioInputStream extends Readable {
 
     this._rtAudio.setErrorCallback((type, message) => {
       if (type > RtAudioErrorType.DEBUG_WARNING) {
-        this.emit('error', new Error(getErrorMessage(type, message)))
+        this.emit('error', new Error(getReadableErrorMessage(type, message)))
       }
     })
 

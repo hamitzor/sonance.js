@@ -1,11 +1,8 @@
-import { formatToByteCount, getErrorMessage } from './common'
 import { AudioInputStream } from './audio-input-stream'
 import { AudioOutputStream } from './audio-output-stream'
 import { probeApis, probeDevices } from './probe'
 import {
   RtAudio,
-} from '@hamitzor/rtaudio.js'
-import {
   DeviceInfo,
   RtAudioApi,
   RtAudioCallback,
@@ -15,6 +12,8 @@ import {
   RtAudioStreamStatus,
   StreamOptions,
   StreamParameters,
+} from '@hamitzor/rtaudio.js'
+import {
   AudioIOParams,
 } from './types'
 
@@ -38,5 +37,7 @@ export {
   StreamParameters,
   AudioIOParams,
 }
+
+export { rtAudioFormatToByteCount, getReadableErrorMessage } from './common'
 
 export const rtAudioVersion = RtAudio.getVersion()

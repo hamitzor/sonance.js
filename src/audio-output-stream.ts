@@ -1,8 +1,8 @@
 import { Readable, Writable } from 'stream'
-import { RtAudio } from '@hamitzor/rtaudio.js'
-import { formatToByteCount, getErrorMessage } from './common'
+import { RtAudio, RtAudioErrorType, RtAudioFormat, RtAudioStreamStatus } from '@hamitzor/rtaudio.js'
+import { rtAudioFormatToByteCount, getReadableErrorMessage } from './common'
 import { isUint8Array } from 'util/types'
-import { AudioIOParams, RtAudioErrorType, RtAudioFormat, RtAudioStreamStatus } from './types'
+import { AudioIOParams } from './types'
 
 const merge = (u1: Uint8Array, u2: Uint8Array) => {
   const merged = new Uint8Array(u1.byteLength + u2.byteLength)
@@ -39,7 +39,7 @@ export class AudioOutputStream extends Writable {
    * @param params parameters for the output stream
    */
   constructor(params: AudioIOParams) {
-    const chunkSize = params.bufferFrames * params.channels * formatToByteCount(params.format || RtAudioFormat.RTAUDIO_SINT16)
+    const chunkSize = params.bufferFrames * params.channels * rtAudioFormatToByteCount(params.format || RtAudioFormat.RTAUDIO_SINT16)
     const highWaterMark = params.highWaterMark || chunkSize
     super({ highWaterMark: highWaterMark })
 
@@ -51,7 +51,7 @@ export class AudioOutputStream extends Writable {
     this._buffer = new Uint8Array(0)
     this._rtAudio.setErrorCallback((type, message) => {
       if (type > RtAudioErrorType.DEBUG_WARNING) {
-        this.emit('error', new Error(getErrorMessage(type, message)))
+        this.emit('error', new Error(getReadableErrorMessage(type, message)))
       }
     })
 

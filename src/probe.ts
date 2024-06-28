@@ -1,7 +1,6 @@
-import { RtAudio } from '@hamitzor/rtaudio.js'
-import { DeviceInfo, RtAudioApi } from './types'
+import { DeviceInfo, RtAudio, RtAudioApi } from '@hamitzor/rtaudio.js'
 
-/** Get available low level audio APIs */
+/** Get available audio APIs */
 export const probeApis = () => RtAudio.getCompiledApi().map(id => ({
   id,
   name: RtAudio.getApiDisplayName(id)
