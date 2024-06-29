@@ -3,7 +3,10 @@
   <br>
 </h1>
 
-<h4>Audio I/O on Node.js</h4>
+<img src="https://github.com/hamitzor/sonance.js/assets/30659091/886a08fa-e3b2-4d0d-855f-6594e31b57f7" alt="logo" width="400"/>
+
+<br/>
+<p>Audio I/O on Node.js</p>
 
 <p>
   <a href="https://www.npmjs.com/package/@hamitzor/sonance.js">
