@@ -16,12 +16,12 @@ import { AudioIOParams } from './types'
  * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} 
  * would do. The
  * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `stream.Readable.read`} method
- * is for example used to retrieve audio data from input device. It has a couple of additional methods and accessors
- * related with the audio stream that can be checked down on this page.
+ * is for example used to retrieve audio data from input device. Besides 
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} methods, 
+ * it has a couple of additional methods and accessors related to the audio stream, which are listed down on this page.
  * 
- * The chunks of audio data are obtained in realtime from input device in PCM form.
- * 
- * Each chunk contains a sequence of samples, that can be in one of these formats:
+ * The chunks of audio data are obtained in realtime from input device in PCM form. Each chunk contains a sequence of samples, 
+ * that can be in one of the following formats:
  * 
  *  - signed 8-bit integer ({@link RtAudioFormat | `RtAudioFormat.RTAUDIO_SINT8`})
  *  - signed 16-bit integer ({@link RtAudioFormat | `RtAudioFormat.RTAUDIO_SINT16`})
@@ -50,7 +50,7 @@ import { AudioIOParams } from './types'
  * array.at(0) // the first sample
  * ```
  * 
- * Note: The underlying RtAudio library uses system's endianness. So using `Int16Array.from(chunk.buffer)`
+ * Note: System's endianness is used. So using `Int16Array.from(chunk.buffer)`
  * is guaranteed to be safe only on the same platform/architecture that generated the audio input data. 
  * When transferring this data to another platform/architecture endianness might need to be adjusted.
  * 
@@ -80,15 +80,15 @@ import { AudioIOParams } from './types'
  * If it is intended to consume the stream in the second fashion, the `read` method should be called 
  * with no `size`. When no `size` is given, `read` will return exactly `params.bufferFrames` samples 
  * for each channel. Which allows you to simply convert the chunk into an appropriate typed array, e.g. 
- * `Int16Array`, and access each sample by index, as shown above. 
+ * `Int16Array`, and access each sample by index, as shown in the above example. 
  * 
  * If you insist providing `size` (means that you want to fetch exactly `size` bytes), you will have to manually 
  * come up with an appropriate `size`. Which depends on whether non-interleaved mode is activated or not. 
  * For example, if the data is interleaved, the `size` would need to be a multiple of 
- * `(number of channels) x (number of bytes of the format)`. This hassle can be prevented by simply specifying no size,
+ * `(number of channels) x (number of bytes of the format)`. This burden can be prevented by simply specifying no size,
  * which will make `read` return exactly `(number of channels) x (number of bytes of the format) x params.bufferFrames` bytes.
  * 
- * Since `AudioInputStream` is a `stream.Readable`, it can be used in any fashion a `stream.Readable` can be used.
+ * Since `AudioInputStream` is a `stream.Readable`, it can be used pretty much anywhere a `stream.Readable` can be used.
  * That is, it can be piped with a `stream.Writable`, `stream.Transform` or a `stream.Duplex`.
  * 
  * `highWaterMark` for the `AudioInputStream` instance can be specified during instantiation through 
