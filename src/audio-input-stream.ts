@@ -11,13 +11,13 @@ import { AudioIOParams } from './types'
  * 
  * See {@link AudioIOParams} for the parameters to instantiate it.
  * 
- * This class extends {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`},
+ * This class extends {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamreadable | `stream.Readable`},
  * which means that it exposes all the methods and accessors and emits all the events a
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} 
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamreadable | `stream.Readable`} 
  * would do. The
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} method
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_readable_read_size | `read`} method
  * is for example used to retrieve audio data from input device. Besides 
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} methods, 
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamreadable | `stream.Readable`} methods, 
  * it has a couple of additional methods and accessors related to the audio stream, which are listed down on this page.
  * 
  * The chunks of audio data are obtained in realtime from input device in PCM form. Each chunk contains a sequence of samples, 
@@ -38,7 +38,7 @@ import { AudioIOParams } from './types'
  * application. As expected, specifying a small value for {@link AudioIOParams | `params.bufferFrames`} can be
  * less performant, while specifying a big value might introduce lag in the stream.
  * 
- * The {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} method returns 
+ * The {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_readable_read_size | `read`} method returns 
  * a chunk which is a sequence of bytes and is an instance of
  * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array | `Uint8Array`}. 
  * The chunk can be converted into {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array | `Int16Array`}, 
@@ -80,14 +80,14 @@ import { AudioIOParams } from './types'
  * each sample
  * 
  * If it is intended to consume the stream in the first fashion, the 
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} 
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_readable_read_size | `read`} 
  * method can be called with an arbitrary
  * `size`, or no `size` at all.
  * 
  * If it is intended to consume the stream in the second fashion, the 
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} 
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_readable_read_size | `read`} 
  * method should be called with no `size`. When no `size` is given, 
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} 
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_readable_read_size | `read`} 
  * will return exactly {@link AudioIOParams | `params.bufferFrames`} samples 
  * for each channel. Which allows you to simply convert the chunk into an appropriate typed array, e.g. 
  * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array | `Int16Array`}, 
@@ -97,16 +97,16 @@ import { AudioIOParams } from './types'
  * come up with an appropriate `size`. Which depends on whether non-interleaved mode is activated or not. 
  * For example, if the data is interleaved, the `size` would need to be a multiple of 
  * `(number of channels) x (number of bytes of the format)`. This burden can be prevented by simply specifying no size,
- * which will make {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} return 
+ * which will make {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_readable_read_size | `read`} return 
  * exactly `(number of channels) x (number of bytes of the format) x params.bufferFrames` bytes.
  * 
  * Since {@link AudioInputStream | `AudioInputStream`} is a 
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`}, 
- * it can be used pretty much anywhere a {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} 
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamreadable | `stream.Readable`}, 
+ * it can be used pretty much anywhere a {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamreadable | `stream.Readable`} 
  * can be used.
- * That is, it can be piped with a {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_class_stream_writable | `stream.Writable`},
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_class_stream_transform | `stream.Transform`} or a 
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_class_stream_duplex | `stream.Duplex`}.
+ * That is, it can be piped with a {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_class_stream_writable | `stream.Writable`},
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_class_stream_transform | `stream.Transform`} or a 
+ * {@link https://nodejs.org/docs/latest-v18.x/api/stream.html#stream_class_stream_duplex | `stream.Duplex`}.
  * 
  * `highWaterMark` for the {@link AudioInputStream | `AudioInputStream`} instance can be specified during instantiation through 
  * {@link AudioIOParams | `params.highWaterMark`}.
