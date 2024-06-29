@@ -15,7 +15,7 @@ import { AudioIOParams } from './types'
  * which means that it exposes all the methods and accessors and emits all the events a
  * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} 
  * would do. The
- * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `stream.Readable.read`} method
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} method
  * is for example used to retrieve audio data from input device. Besides 
  * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} methods, 
  * it has a couple of additional methods and accessors related to the audio stream, which are listed down on this page.
@@ -29,17 +29,22 @@ import { AudioIOParams } from './types'
  *  - 32-bit float normalized between plus/minus 1.0 ({@link RtAudioFormat | `RtAudioFormat.RTAUDIO_FLOAT32`})
  *  - 64-bit float normalized between plus/minus 1.0 ({@link RtAudioFormat | `RtAudioFormat.RTAUDIO_FLOAT64`})
  * 
- * `params.format` is used to specify the format.
+ * {@link AudioIOParams | `params.format`} is used to specify the format.
  * 
- * `params.bufferFrames` can be used to specify the size of the internal buffer used
+ * {@link AudioIOParams | `params.bufferFrames`} can be used to specify the size of the internal buffer used
  * to accumulate audio samples before propagating it to the user application. For example
- * if `params.bufferFrames` is set to `n`, then the library would wait `n` samples
+ * if {@link AudioIOParams | `params.bufferFrames`} is set to "n", then the library would wait "n" samples
  * to be delivered (from each channel) from the input device before redirecting it to the user
- * application. As expected, specifying a small value for `params.bufferFrames` can be
+ * application. As expected, specifying a small value for {@link AudioIOParams | `params.bufferFrames`} can be
  * less performant, while specifying a big value might introduce lag in the stream.
  * 
- * The `read` method returns a chunk which is a sequence of bytes and is an instance of `Uint8Array`. 
- * The chunk can be converted into `Int16Array`, `Int32Array`, `Float32Array` `Float64Array` to access 
+ * The {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} method returns 
+ * a chunk which is a sequence of bytes and is an instance of
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array | `Uint8Array`}. 
+ * The chunk can be converted into {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array | `Int16Array`}, 
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array | `Int32Array`}, 
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array | `Float32Array`} or
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array | `Float32Array`} to access 
  * samples by index. For example, if the format is signed 16-bit integer then the following can be
  * used to access each sample by index:
  * 
@@ -65,7 +70,7 @@ import { AudioIOParams } from './types'
  * 
  * This behaviour can be altered to non-interleaved by specifying 
  * {@link RtAudioStreamFlags.RTAUDIO_NONINTERLEAVED | `RtAudioStreamFlags.RTAUDIO_NONINTERLEAVED`} 
- * in `params.options.flags`. In that case, first half of the chunk
+ * in {@link AudioIOParams | `params.options.flags`}. In that case, first half of the chunk
  * would contain the samples from the first channel and the second half would contain the samples
  * from the second channel.
  * 
@@ -74,28 +79,40 @@ import { AudioIOParams } from './types'
  * - processing, e.g. encoding, noise cancelling, reducing volume -> anything that requires processing
  * each sample
  * 
- * If it is intended to consume the stream in the first fashion, the `read` method can be called with an arbitrary
+ * If it is intended to consume the stream in the first fashion, the 
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} 
+ * method can be called with an arbitrary
  * `size`, or no `size` at all.
  * 
- * If it is intended to consume the stream in the second fashion, the `read` method should be called 
- * with no `size`. When no `size` is given, `read` will return exactly `params.bufferFrames` samples 
+ * If it is intended to consume the stream in the second fashion, the 
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} 
+ * method should be called with no `size`. When no `size` is given, 
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} 
+ * will return exactly {@link AudioIOParams | `params.bufferFrames`} samples 
  * for each channel. Which allows you to simply convert the chunk into an appropriate typed array, e.g. 
- * `Int16Array`, and access each sample by index, as shown in the above example. 
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array | `Int16Array`}, 
+ * and access each sample by index, as shown in the above example. 
  * 
  * If you insist providing `size` (means that you want to fetch exactly `size` bytes), you will have to manually 
  * come up with an appropriate `size`. Which depends on whether non-interleaved mode is activated or not. 
  * For example, if the data is interleaved, the `size` would need to be a multiple of 
  * `(number of channels) x (number of bytes of the format)`. This burden can be prevented by simply specifying no size,
- * which will make `read` return exactly `(number of channels) x (number of bytes of the format) x params.bufferFrames` bytes.
+ * which will make {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_read_size | `read`} return 
+ * exactly `(number of channels) x (number of bytes of the format) x params.bufferFrames` bytes.
  * 
- * Since `AudioInputStream` is a `stream.Readable`, it can be used pretty much anywhere a `stream.Readable` can be used.
- * That is, it can be piped with a `stream.Writable`, `stream.Transform` or a `stream.Duplex`.
+ * Since {@link AudioInputStream | `AudioInputStream`} is a 
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`}, 
+ * it can be used pretty much anywhere a {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_readable_streams | `stream.Readable`} 
+ * can be used.
+ * That is, it can be piped with a {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_class_stream_writable | `stream.Writable`},
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_class_stream_transform | `stream.Transform`} or a 
+ * {@link https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_class_stream_duplex | `stream.Duplex`}.
  * 
- * `highWaterMark` for the `AudioInputStream` instance can be specified during instantiation through 
- * `params.highWaterMark`.
+ * `highWaterMark` for the {@link AudioInputStream | `AudioInputStream`} instance can be specified during instantiation through 
+ * {@link AudioIOParams | `params.highWaterMark`}.
  * 
  * See {@link https://github.com/hamitzor/sonance.js-examples | sonance.js Examples repo} for some example apps
- * that use `AudioInputStream`.
+ * that use {@link AudioInputStream | `AudioInputStream`}.
  * 
  */
 export class AudioInputStream extends Readable {
