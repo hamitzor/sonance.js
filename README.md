@@ -6,13 +6,13 @@
 
 <p>
   <a href="https://www.npmjs.com/package/@hamitzor/sonance.js">
-    <img src="https://img.shields.io/badge/2.0.0-brightgreen?style=flat&label=npm%20package"
+    <img src="https://img.shields.io/badge/2.0.1-brightgreen?style=flat&label=npm%20package"
          alt="NPM">
   </a>
 </p>
 
 <p>
-  <a href="#key-features">Overview</a> •
+  <a href="#overview">Overview</a> •
   <a href="#installation">Installation</a> •
   <a href="#usage">Usage</a> •
   <a href="#credits">Credits</a> •
@@ -50,7 +50,7 @@ yarn add @hamitzor/sonance.js
 
 As simple as that, no additional library/software required for installation. If you run into trouble during installation, don't hesitate to create an issue at <a href="https://github.com/hamitzor/sonance.js/issues">Github</a>.
 
-For installing for Electron, see this section.
+For installing for Electron, see this <a href="#installing-for-electron">section</a>.
 
 ## Usage
 
@@ -135,7 +135,7 @@ const server = net.createServer((connection) => {
 // Or do anything you want that is achievable with a writable Node.js stream
 ```
 
-## Installing for Electron 11.x.x - 28.x.x
+## Installing for Electron
 
 If you'll be using the package with Electron, you'll have to set some environment variables before the installation.
 
