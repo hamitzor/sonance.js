@@ -1,16 +1,12 @@
 <h1>
-  Sonance.js
+  sonance.js
   <br>
 </h1>
-
-<img src="https://github.com/hamitzor/sonance.js/assets/30659091/886a08fa-e3b2-4d0d-855f-6594e31b57f7" alt="logo" width="400"/>
-
-<br/>
 <p>Audio I/O on Node.js</p>
 
 <p>
   <a href="https://www.npmjs.com/package/@hamitzor/sonance.js">
-    <img src="https://img.shields.io/badge/1.0.1-brightgreen?style=flat&label=npm%20package"
+    <img src="https://img.shields.io/badge/2.0.0-brightgreen?style=flat&label=npm%20package"
          alt="NPM">
   </a>
 </p>
@@ -25,9 +21,7 @@
 
 ## Overview
 
-- Access well-known audio I/O APIs
-- Windows: WASAPI, DirectSound
-- Linux: ALSA, JACK and PulseAudio
+- Works on Linux, Windows and macOS
 - Probe available audio devices
 - Stream audio to output devices
 - Stream audio from input devices
@@ -36,9 +30,9 @@
   - bit depth
   - frame size
   - number of channels
-- The library is implemented fully with Node.js streams
+- The library is implemented fully in compatible with Node.js streams
   - Convenient to use with network I/O, file I/O and other streams on Node.js
-  - Comes with all the advantages of Node.js streams
+  - Comes with all the quirks of Node.js streams
 
 ## Installation
 
@@ -56,8 +50,7 @@ yarn add @hamitzor/sonance.js
 
 As simple as that, no additional library/software required for installation. If you run into trouble during installation, don't hesitate to create an issue at <a href="https://github.com/hamitzor/sonance.js/issues">Github</a>.
 
-> **Note**
-> Only Windows and Linux are supported at the moment.
+For installing for Electron, see this section.
 
 ## Usage
 
@@ -68,23 +61,19 @@ But here are some simple examples:
 ### Read from microphone
 
 ```javascript
-const {
-  createAudioInputStream,
-  probeDevices,
-  LowLevelAudioApi,
-} = require("@hamitzor/sonance.js");
+import { AudioInputStream, probeDevices, RtAudioFormat } from '@hamitzor/sonance.js'
+
 
 // Get the default input device
-const { defaultInputDevice } = probeDevices();
+const { defaultInputDevice } = probeDevices()
 
 // Create a read stream
-const audioStream = createAudioInputStream({
-  api: LowLevelAudioApi.WASAPI, // On Linux, can be changed to, e.g. ALSA
+const audioStream = new AudioInputStream({
   deviceId: defaultInputDevice.id, // The device to read from
   channels: 1, // The number of channels
   sampleRate: 48000, // Sample rate
   bufferFrames: 1920, // Frame size: number of samples in a frame
-  format: PCMFormat.RTAUDIO_SINT16, // 16-bit signed integer (16-bit depth)
+  format: RtAudioFormat.RTAUDIO_SINT16, // 16-bit signed integer (16-bit depth)
 });
 
 // Do whatever you want with the stream
@@ -111,23 +100,18 @@ const server = net.createServer((connection) => {
 ### Stream audio to output devices
 
 ```javascript
-const {
-  createAudioOutputStream,
-  probeDevices,
-  LowLevelAudioApi,
-} = require("@hamitzor/sonance.js");
+import { AudioOutputStream, probeDevices, RtAudioFormat } from '@hamitzor/sonance.js'
 
 // Get the default output device
-const { defaultOutputDevice } = probeDevices();
+const { defaultOutputDevice } = probeDevices()
 
 // Create a write stream
-const audioStream = createAudioOutputStream({
-  api: LowLevelAudioApi.WASAPI, // On Linux, can be changed to, e.g. ALSA
+const audioStream = new AudioOutputStream({
   deviceId: defaultOutputDevice.id, // The device to stream to
   channels: 1, // The number of channels
   sampleRate: 48000, // Sample rate
   bufferFrames: 1920, // Frame size: number of samples in a frame
-  format: PCMFormat.RTAUDIO_SINT16, // 16-bit signed integer (16-bit depth)
+  format: RtAudioFormat.RTAUDIO_SINT16, // 16-bit signed integer (16-bit depth)
 });
 
 // Do whatever you want with the stream
@@ -150,6 +134,46 @@ const server = net.createServer((connection) => {
 
 // Or do anything you want that is achievable with a writable Node.js stream
 ```
+
+## Installing for Electron 11.x.x - 28.x.x
+
+If you'll be using the package with Electron, you'll have to set some environment variables before the installation.
+
+For example, for Electron v28.0.0
+
+On bash:
+```
+export npm_config_runtime=electron
+export npm_config_target=28.0.0
+```
+
+On powershell:
+```
+$env:npm_config_runtime = "electron"
+$env:npm_config_target = "28.0.0"
+```
+
+On cmd:
+```
+set npm_config_runtime=electron
+set npm_config_target=28.0.0
+```
+
+To see a complete list of Electron versions, see this [registry](https://github.com/electron/node-abi/blob/main/abi_registry.json).
+
+These environment variables will help the installation command to pick the correct [prebuilds](https://github.com/hamitzor/rtaudio.js/releases/tag/v1.2.0). After setting these up, you can simply use `npm` or `yarn`
+
+```
+npm install @hamitzor/sonance.js
+```
+
+or
+
+```
+yarn add @hamitzor/sonance.js
+```
+
+As simple as that, no additional library/software required for installation. If you run into trouble during installation, don't hesitate to create an issue at <a href="https://github.com/hamitzor/rtaudio.js/issues">Github</a>.
 
 ## Credits
 

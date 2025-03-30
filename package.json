@@ -1,6 +1,6 @@
 {
     "name": "@hamitzor/sonance.js",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "Access audio I/O from Node",
     "repository": {
         "type": "git",
@@ -23,13 +23,12 @@
         "README.md",
         "tsconfig.json"
     ],
-    "packageManager": "yarn@4.0.2",
     "scripts": {
         "build": "tsc",
         "build:watch": "tsc --watch"
     },
     "dependencies": {
-        "@hamitzor/rtaudio.js": "1.0.13"
+        "@hamitzor/rtaudio.js": "2.1.0"
     },
     "devDependencies": {
         "@types/node": "^18.19.0",
