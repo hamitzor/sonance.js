@@ -129,7 +129,7 @@ export class AudioInputStream extends Readable {
    */
   constructor(params: AudioIOParams) {
     const highWaterMark = params.bufferFrames * params.channels * rtAudioFormatToByteCount(params.format || RtAudioFormat.RTAUDIO_SINT16)
-    super({ highWaterMark: highWaterMark })
+    super({ highWaterMark: highWaterMark, emitClose: true })
 
     this._rtAudio = params.api ? new RtAudio(params.api) : new RtAudio()
     this._buffer = []

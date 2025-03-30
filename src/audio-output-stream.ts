@@ -41,7 +41,7 @@ export class AudioOutputStream extends Writable {
   constructor(params: AudioIOParams) {
     const chunkSize = params.bufferFrames * params.channels * rtAudioFormatToByteCount(params.format || RtAudioFormat.RTAUDIO_SINT16)
     const highWaterMark = params.highWaterMark || chunkSize
-    super({ highWaterMark: highWaterMark })
+    super({ highWaterMark: highWaterMark, emitClose: true })
 
     this._chunkSize = chunkSize
     this._shouldClose = false

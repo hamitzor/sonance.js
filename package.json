@@ -1,6 +1,6 @@
 {
     "name": "@hamitzor/sonance.js",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Access audio I/O from Node",
     "repository": {
         "type": "git",

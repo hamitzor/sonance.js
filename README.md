@@ -6,7 +6,7 @@
 
 <p>
   <a href="https://www.npmjs.com/package/@hamitzor/sonance.js">
-    <img src="https://img.shields.io/badge/2.0.1-brightgreen?style=flat&label=npm%20package"
+    <img src="https://img.shields.io/badge/2.0.2-brightgreen?style=flat&label=npm%20package"
          alt="NPM">
   </a>
 </p>
