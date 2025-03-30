@@ -158,11 +158,11 @@ export class AudioInputStream extends Readable {
         if (this._shouldClearBuffer) {
           this._shouldClearBuffer = false
           this._buffer = []
-          return
+          return 0
         }
 
         if (this.closed) {
-          return
+          return 0
         }
 
         if (status === RtAudioStreamStatus.RTAUDIO_INPUT_OVERFLOW) {
@@ -173,30 +173,30 @@ export class AudioInputStream extends Readable {
           if (this._shouldBuffer) {
             if (this._buffer.length === 0) {
               this.push(null)
-              return
+              return 0
             }
 
             this._buffer.push(null)
-            return
+            return 0
           }
 
           let bufferHead = this._buffer.shift()
 
           if (bufferHead === undefined) {
             this.push(null)
-            return
+            return 0
           }
 
           if (!this.push(bufferHead)) {
             this._shouldBuffer = true
           }
 
-          return
+          return 0
         }
 
         if (this._shouldBuffer) {
           this._buffer.push(input)
-          return
+          return 0
         }
 
         let bufferHead = this._buffer.shift()
@@ -205,14 +205,14 @@ export class AudioInputStream extends Readable {
           if (!this.push(input)) {
             this._shouldBuffer = true
           }
-          return
+          return 0
         }
 
         this._buffer.push(input)
 
         if (!this.push(bufferHead)) {
           this._shouldBuffer = true
-          return
+          return 0
         }
       }
     )

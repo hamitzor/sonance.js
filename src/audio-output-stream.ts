@@ -75,13 +75,15 @@ export class AudioOutputStream extends Writable {
           output.set(h, 0)
           this.emit('api:processed')
         } else if (this._shouldClose) {
-          this._rtAudio.closeStream()
           this._destroyCallback(this._destroyError)
+          return 1
         }
 
         if (status === RtAudioStreamStatus.RTAUDIO_OUTPUT_UNDERFLOW) {
           this.emit('api:underflow')
         }
+
+        return 0
       }
     )
 
